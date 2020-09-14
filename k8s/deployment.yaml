@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrd-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vrd-admin
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: vrd-admin
+    spec:
+      nodeSelector:
+        'beta.kubernetes.io/os': linux
+      containers:
+        - name: vrd-admin
+          image: bekube/vrd-admin:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1  
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 500m
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/nginx/conf.d"
+              readOnly: true
+
+      volumes:
+        - name: config
+          configMap:
+            name: vrd-admin-configmap
+            items:
+              - key: default.conf
+                path: default.conf 
