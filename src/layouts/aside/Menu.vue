@@ -132,7 +132,7 @@
       <i class="menu-icon flaticon-more-v2"></i>
     </li>
 
-    <router-link to="/private" v-slot="{ href, navigate, isActive, isExactActive }">
+    <router-link to="/member/list" v-slot="{ href, navigate, isActive, isExactActive }">
       <li
         aria-haspopup="true"
         data-menu-toggle="hover"

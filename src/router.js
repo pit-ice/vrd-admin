@@ -400,6 +400,24 @@ export default new Router({
               component: () => import('@/views/pages/plugins/Cropper.vue')
             }
           ]
+        },
+
+        {
+          path: '/member',
+          name: 'member',
+          component: () => import('@/views/pages/wizard/Wizard.vue'),
+          children: [
+            {
+              path: 'list',
+              name: 'list',
+              component: () => import('@/views/pages/MemberList.vue')
+            },
+            {
+              path: 'detail',
+              name: 'detail',
+              component: () => import('@/views/pages/MemberDetail.vue')
+            }
+          ]
         }
       ]
     },

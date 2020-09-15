@@ -44,6 +44,13 @@ const MockService = {
       }
       return [401, { errors: ['Invalid authentication'] }];
     });
+
+    mock.onGet('/member/list').reply(() => {
+      return [200, require('./member.json')];
+    });
+    mock.onGet('/member/detail').reply(() => {
+      return [200, require('./memberdetail.json')];
+    });
   }
 };
 

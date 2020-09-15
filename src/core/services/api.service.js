@@ -32,8 +32,8 @@ const ApiService = {
    * @param slug
    * @returns {*}
    */
-  get(resource, slug = '') {
-    return Vue.axios.get(`${resource}/${slug}`).catch(error => {
+  get(resource) {
+    return Vue.axios.get(`${resource}`).catch(error => {
       // console.log(error);
       throw new Error(`[KT] ApiService ${error}`);
     });
