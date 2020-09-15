@@ -6,7 +6,8 @@ export const GET_MEMBER = 'getList';
 export const SET_ERROR = 'setError';
 
 const state = {
-  member: []
+  members: [],
+  member: {}
 };
 
 const getters = {};
@@ -37,7 +38,7 @@ const mutations = {
     state.errors = error;
   },
   memberlist(state, list) {
-    state.member = list;
+    state.members = list;
   },
   memberdetail(state, list) {
     state.member = list;

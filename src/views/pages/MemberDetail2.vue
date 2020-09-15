@@ -4,36 +4,77 @@
   v-model="valid"
   lazy-validation
 >
-  <v-text-field
-    v-model="name"
-    :counter="10"
-    :rules="nameRules"
-    label="Name"
-    required
-  ></v-text-field>
+  <v-container>
+    <v-row
 
-  <v-text-field
-    v-model="email"
-    :rules="emailRules"
-    label="E-mail"
-    required
-  ></v-text-field>
+      justify="space-between"
+    >
+      <v-col
+        cols="3"
+        md="5"
+      >
+        <v-form ref="form">
+          <v-text-field
+            v-model="member.id"
+            :counter="12"
+            :rules="rules"
+            label="아이디"
+            readonly
+          ></v-text-field>
 
-  <v-select
-    v-model="select"
-    :items="items"
-    :rules="[v => !!v || 'Item is required']"
-    label="Item"
-    required
-  ></v-select>
+          <v-text-field
+            v-model="member.email"
+            :counter="20"
+            :rules="rules"
+            label="이메일"
+            
+          ></v-text-field>
 
-  <v-checkbox
-    v-model="checkbox"
-    :rules="[v => !!v || 'You must agree to continue!']"
-    label="Do you agree?"
-    required
-  ></v-checkbox>
+          <v-text-field
+            v-model="member.tel"
+            :counter="20"
+            :rules="rules"
+            label="전화번호"
+          ></v-text-field>
 
+        </v-form>
+      </v-col>
+
+      <v-col
+        cols="3"
+        md="5"
+      >
+        <v-text-field
+            v-model="member.name"
+            :counter="6"
+            :rules="rules"
+            label="이름"
+          ></v-text-field>
+           <v-text-field
+            v-model="member.company"
+            :counter="20"
+            :rules="rules"
+            label="기업명"
+          ></v-text-field>
+           <v-text-field
+            v-model="member.nick"
+            :counter="20"
+            :rules="rules"
+            label="Nick"
+          ></v-text-field>
+      </v-col>
+    </v-row>
+    
+          <v-text-field
+            v-model="member.credate"
+            label="가입일"
+            readonly
+          ></v-text-field>
+     <v-checkbox
+          v-model="allowSpaces"
+          label="Allow spaces"
+        ></v-checkbox>
+  </v-container>
   <v-btn
     :disabled="!valid"
     color="success"

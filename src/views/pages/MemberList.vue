@@ -46,7 +46,7 @@ export default {
 
   computed: {
     members() {
-      return this.$store.state.member.member;
+      return this.$store.state.member.members;
     }
   },
 
