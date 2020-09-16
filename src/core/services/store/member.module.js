@@ -30,6 +30,15 @@ const actions = {
       .catch(error => {
         console.log(error);
       });
+  },
+  memberupdate(context, params) {
+    ApiService.put('/member/update', params)
+      .then(({ data }) => {
+        context.commit('memberdetail', data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 

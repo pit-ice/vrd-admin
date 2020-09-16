@@ -59,14 +59,14 @@ export default {
   },
   methods: {
     handleClick() {
-              this.$store.dispatch('memberdetail').then(
-          () => {
-            this.$router.push('/member/detail');
-          },
-          (error) => {
-            alert(error.message);
-          }
-        );
+      this.$store.dispatch('memberdetail').then(
+        () => {
+          this.$router.push('/member/detail');
+        },
+        error => {
+          alert(error.message);
+        }
+      );
     }
   }
 };

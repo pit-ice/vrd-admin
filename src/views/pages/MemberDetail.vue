@@ -1,150 +1,171 @@
 <template>
-<v-form
-  ref="form"
-  v-model="valid"
-  lazy-validation
->
-  <v-text-field
-    v-model="name"
-    :counter="10"
-    :rules="nameRules"
-    label="Name"
-    required
-  ></v-text-field>
+  <div>
 
-  <v-text-field
-    v-model="email"
-    :rules="emailRules"
-    label="E-mail"
-    required
-  ></v-text-field>
+        
 
-  <v-select
-    v-model="select"
-    :items="items"
-    :rules="[v => !!v || 'Item is required']"
-    label="Item"
-    required
-  ></v-select>
-
-  <v-checkbox
-    v-model="checkbox"
-    :rules="[v => !!v || 'You must agree to continue!']"
-    label="Do you agree?"
-    required
-  ></v-checkbox>
-
-  <v-btn
-    :disabled="!valid"
-    color="success"
-    class="mr-4"
-    @click="validate"
-  >
-    Validate
-  </v-btn>
-
-  <v-btn
-    color="error"
-    class="mr-4"
-    @click="reset"
-  >
-    Reset Form
-  </v-btn>
-
-  <v-btn
-    color="warning"
-    @click="resetValidation"
-  >
-    Reset Validation
-  </v-btn>
-</v-form>
+        <KTCodePreview v-bind:title="'멤버 상세'">
+          <template v-slot:preview >
+           
+            <v-card flat>
+              <v-snackbar v-model="snackbar" absolute top right color="success">
+                <span>Registration successful!</span>
+                <v-icon dark>mdi-checkbox-marked-circle</v-icon>
+              </v-snackbar>
+              <v-form ref="form" @submit.prevent="submit">
+                <v-container fluid>
+                  <v-row>
+                    <v-col cols="12" sm="12">
+                      <v-text-field
+                        v-model="member.id"
+                        color="purple darken-2"
+                        label="아이디"
+                        readonly
+                        filled
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        v-model="member.email"
+                        :rules="rules.email"
+                        color="blue darken-2"
+                        label="이메일"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        v-model="member.name"
+                        :rules="rules.required"
+                        color="blue darken-2"
+                        label="이름"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        v-model="member.tel"
+                        :rules="rules.required"
+                        color="blue darken-2"
+                        label="전화번호"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        v-model="member.company"
+                        :rules="rules.required"
+                        color="blue darken-2"
+                        label="기업명"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-text-field
+                        v-model="member.nick"
+                        color="blue darken-2"
+                        label="Nick"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="12">
+                      <v-text-field
+                        v-model="member.credate"
+                        color="blue darken-2"
+                        label="가입일"
+                        readonly
+                        filled
+                      ></v-text-field>
+                    </v-col>
+                    
+                    <v-col cols="12">
+                      <v-checkbox v-model="form.terms" color="green">
+                        <template v-slot:label>
+                          <div @click.stop="">
+                            동의
+                          </div>
+                        </template>
+                      </v-checkbox>
+                    </v-col>
+                  </v-row>
+                </v-container>
+                <v-card-actions>
+                  <v-btn text @click="resetForm">Cancel</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn :disabled="!formIsValid" text color="primary" type="submit">Register</v-btn>
+                </v-card-actions>
+              </v-form>
+            </v-card>
+          </template>
+        </KTCodePreview>
+  </div>
 </template>
+
 <script>
+import KTCodePreview from '@/components/CodePreview.vue';
 import { SET_BREADCRUMB } from '@/core/services/store/breadcrumbs.module';
+
+// code6
+const defaultForm = Object.freeze({
+  first: '',
+  last: '',
+  bio: '',
+  favoriteAnimal: '',
+  age: null,
+  terms: false
+});
+
 export default {
-  data: () => ({
-      allowSpaces: false,
-      valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-    ],
-    checkbox: false,
-    }),
-   computed: {
-      rules () {
-        const rules = []
+  data() {
+    return {
+        form: Object.assign({}, defaultForm),
+        rules: {
+          email: [ v => !!v || 'E-mail is required',
+                   v => /.+@.+\..+/.test(v) || 'E-mail must be valid',],
+          required: [val => (val || '').length > 0 || 'This field is required']
+        },
+        snackbar: false,
+        terms: false,
+        defaultForm
 
-        if (this.max) {
-          const rule =
-            v => (v || '').length <= this.max ||
-              `A maximum of ${this.max} characters is allowed`
+    };
+  },
+  components: {
+    KTCodePreview
+  },
+  mounted() {
+     this.$store.dispatch(SET_BREADCRUMB, [{ title: '멤버 관리', route: '/member/list' }, { title: '멤버 상세' }]);
+  },
 
-          rules.push(rule)
-        }
-
-        if (!this.allowSpaces) {
-          const rule =
-            v => (v || '').indexOf(' ') < 0 ||
-              'No spaces are allowed'
-
-          rules.push(rule)
-        }
-
-        if (this.match) {
-          const rule =
-            v => (!!v && v) === this.match ||
-              'Values do not match'
-
-          rules.push(rule)
-        }
-
-        return rules
-      },
-      member() {
+  computed: {
+    // code6
+    formIsValid() {
+      return this.member.email && this.member.name && this.member.tel && this.member.company && this.form.terms;
+    },
+    member() {
       return this.$store.state.member.member;
     }
-    },
+  },
   created() {
     this.$store.dispatch('memberdetail');
   },
-    watch: {
-      match: 'validateField',
-      max: 'validateField',
-      model: 'validateField',
+  methods: {
+    // code6
+    resetForm() {
+      this.form = Object.assign({}, this.defaultForm);
+      this.$refs.form.reset();
     },
+    submit() {
+            this.$store.dispatch('memberupdate').then(
+        () => {
+         alert('Update Success');
+            this.snackbar = true;
+        },
+        error => {
+          alert(error.message);
+        }
+      );
 
-    methods: {
-      validateField () {
-        this.$refs.form.validate()
-      },
-      validate () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
-    },
-    },
-    mounted() {
-    this.$store.dispatch(SET_BREADCRUMB, [{ title: '멤버 관리', route: '/member/list' }, { title: '멤버 상세' }]);
+    }
   }
 };
 </script>

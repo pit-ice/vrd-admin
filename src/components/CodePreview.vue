@@ -5,12 +5,6 @@
         <slot name="title"></slot>
       </h3>
     </template>
-    <template v-slot:toolbar>
-      <div class="example-tools justify-content-center">
-        <span class="example-toggle" data-toggle="tooltip" v-b-tooltip.hover.top="'View code'" />
-        <span class="example-copy" data-toggle="tooltip" v-b-tooltip.hover.top="'Copy code'" />
-      </div>
-    </template>
     <template v-slot:body>
       <!--begin::Code example-->
       <div class="example-code mb-5">

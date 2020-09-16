@@ -51,6 +51,9 @@ const MockService = {
     mock.onGet('/member/detail').reply(() => {
       return [200, require('./memberdetail.json')];
     });
+    mock.onPut('/member/update').reply(() => {
+      return [200, require('./memberdetail.json')];
+    });
   }
 };
 
