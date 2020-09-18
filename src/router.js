@@ -356,6 +356,11 @@ export default new Router({
               component: () => import('@/views/pages/DataUpload.vue')
             },
             {
+              path: 'multiupload',
+              name: 'multiupload',
+              component: () => import('@/views/pages/DataMultiUpload.vue')
+            },
+            {
               path: 'mng',
               name: 'mng',
               component: () => import('@/views/pages/wizard/Wizard-2.vue')
