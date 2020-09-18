@@ -54,6 +54,9 @@ const MockService = {
     mock.onPut('/member/update').reply(() => {
       return [200, require('./memberdetail.json')];
     });
+    mock.onPost('/sample/multfile').reply(() => {
+      return [200];
+    });
   }
 };
 

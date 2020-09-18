@@ -34,7 +34,7 @@ const actions = {
       res => {
         console.log('111');
         console.log(res);
-        this.setState({ avatar: res.data.message, percent: 100 }, () => {
+        this.setState({ avatar: res.status, percent: 100 }, () => {
           setTimeout(() => {
             this.setState({ progrespercentsRate: 0 });
           }, 1000);

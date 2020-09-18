@@ -113,7 +113,9 @@ export default {
       }
 
       this.$store
-        .dispatch('multfile', formData)
+        .dispatch('multfile', formData).then(() =>{
+          alert('Upload Sucess');
+        })
 
     },
   },
