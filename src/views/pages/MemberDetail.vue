@@ -89,7 +89,7 @@
                   </v-row>
                 </v-container>
                 <v-card-actions>
-                  <v-btn text @click="resetForm">Cancel</v-btn>
+                  <v-btn text @click="resetForm">취소</v-btn>
                   <v-spacer></v-spacer>
                   <v-btn :disabled="!formIsValid" text color="primary" type="submit">Register</v-btn>
                 </v-card-actions>
