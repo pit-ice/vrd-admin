@@ -31,7 +31,7 @@
       <h4 class="menu-text">Data Sets</h4>
       <i class="menu-icon flaticon-more-v2"></i>
     </li>
-    <router-link to="/data/upload" v-slot="{ href, navigate, isActive, isExactActive }">
+    <router-link to="/dataset/upload" v-slot="{ href, navigate, isActive, isExactActive }">
       <li
         aria-haspopup="true"
         data-menu-toggle="hover"
@@ -44,7 +44,7 @@
         </a>
       </li>
     </router-link>
-    <router-link to="/data/multiupload" v-slot="{ href, navigate, isActive, isExactActive }">
+    <router-link to="/dataset/multiupload" v-slot="{ href, navigate, isActive, isExactActive }">
       <li
         aria-haspopup="true"
         data-menu-toggle="hover"
@@ -54,6 +54,19 @@
         <a :href="href" class="menu-link" @click="navigate">
           <i class="menu-icon flaticon-upload"></i>
           <span class="menu-text">Data MultiUpload</span>
+        </a>
+      </li>
+    </router-link>
+    <router-link to="/dataset/list" v-slot="{ href, navigate, isActive, isExactActive }">
+      <li
+        aria-haspopup="true"
+        data-menu-toggle="hover"
+        class="menu-item"
+        :class="[isActive && 'menu-item-active', isExactActive && 'menu-item-active']"
+      >
+        <a :href="href" class="menu-link" @click="navigate">
+          <i class="menu-icon flaticon-upload"></i>
+          <span class="menu-text">데이터 세트</span>
         </a>
       </li>
     </router-link>

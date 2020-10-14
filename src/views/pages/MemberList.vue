@@ -11,7 +11,7 @@
       :items="members"
       :search="search"
       :single-select="singleSelect"
-      item-key="id"
+      item-key="members.index"
       show-select
       class="elevation-1"
       @click:row="handleClick"

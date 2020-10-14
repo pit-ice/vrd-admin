@@ -346,8 +346,8 @@ export default new Router({
           ]
         },
         {
-          path: '/data',
-          name: 'data',
+          path: '/dataset',
+          name: 'dataset',
           component: () => import('@/views/pages/wizard/Wizard.vue'),
           children: [
             {
@@ -359,6 +359,11 @@ export default new Router({
               path: 'multiupload',
               name: 'multiupload',
               component: () => import('@/views/pages/DataMultiUpload.vue')
+            },
+            {
+              path: 'list',
+              name: 'list',
+              component: () => import('@/views/pages/dataset/list.vue')
             },
             {
               path: 'mng',

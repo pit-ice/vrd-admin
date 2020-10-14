@@ -43,10 +43,12 @@
               counter
               label="File input"
               multiple
+              loading
               placeholder="Select your files"
               prepend-icon="mdi-paperclip"
               outlined
               :show-size="1000"
+              progress
             >
               <template v-slot:selection="{ index, text }">
                 <v-chip v-if="index < 2" color="deep-purple accent-4" dark label small>
